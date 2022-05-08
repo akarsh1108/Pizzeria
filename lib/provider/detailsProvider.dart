@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:pizzeria/model/pizzamodel.dart';
 import 'package:pizzeria/services/services.dart';
 
@@ -7,8 +8,6 @@ class DetailsProvider with ChangeNotifier {
   bool get isLoading => _isLoading;
 
   final ApiServices _apiServices = ApiServices();
-  Sizes _sizes = Sizes(id: 1, name: "", price: 10);
-  Crusts _crusts = Crusts(id: 1, name: "", defaultSize: 2, sizes: []);
   PizzaModel _pizzaModel = PizzaModel(
     id: "",
     crusts: [],
@@ -27,5 +26,26 @@ class DetailsProvider with ChangeNotifier {
    _pizzaModel = await _apiServices.pizzaDetails();
     _isLoading = false;
     notifyListeners();
+  }
+
+  Map<String, int> productCount = {};
+  void addProduct(String product) {
+    if (productCount.containsKey(product)) {
+      productCount.update(product, (value) => ++value);
+    } else {
+      productCount[product] = 1;
+    }
+    Get.snackbar("Product Added Successfully", "You have added your pizza",
+        snackPosition: SnackPosition.BOTTOM, duration: Duration(seconds: 2));
+  }
+
+  void decreementProduct(String product) {
+    if (productCount.containsKey(product)) {
+      productCount.update(product, (value) => --value);
+    } else {
+      productCount[product] = 1;
+    }
+    Get.snackbar("Product Removed Successfully", "You have Removed your pizza",
+        snackPosition: SnackPosition.BOTTOM, duration: Duration(seconds: 2));
   }
 }

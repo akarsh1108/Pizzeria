@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pizzeria/constants/theme.dart';
+import 'package:pizzeria/provider/cartProvider.dart';
 import 'package:pizzeria/provider/detailsProvider.dart';
 import 'package:pizzeria/views/cartPage.dart';
 import 'package:pizzeria/views/homePage.dart';
@@ -22,6 +23,9 @@ class MyApp extends StatelessWidget {
       providers: [
          ChangeNotifierProvider(
           create: (_) => DetailsProvider(),
+        ),
+         ChangeNotifierProvider(
+          create: (_) => CartProvider(),
         )
       ],
       child: GetMaterialApp(

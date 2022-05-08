@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pizzeria/model/pizzamodel.dart';
+import 'package:pizzeria/provider/cartProvider.dart';
+import 'package:provider/provider.dart';
 
 import '../../constants/dialogconstants.dart';
 
@@ -15,7 +17,7 @@ class CustomDialogBox extends StatefulWidget {
   final String title;
   final List<Crusts> crust;
   final int defaultCrust;
-   final String nameid;
+  final String nameid;
   @override
   _CustomDialogBoxState createState() => _CustomDialogBoxState();
 }
@@ -23,9 +25,11 @@ class CustomDialogBox extends StatefulWidget {
 class _CustomDialogBoxState extends State<CustomDialogBox> {
   int selectCrustIndex = -1;
   int selectSizeIndex = -1;
+
   @override
   void initState() {
     super.initState();
+    Provider.of<CartProvider>(context, listen: false).get();
   }
 
   @override
@@ -41,91 +45,96 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
   }
 
   contentBox(context) {
-    return Stack(
-      children: <Widget>[
-        Container(
-          padding: const EdgeInsets.only(
-              left: Constants.padding,
-              top: Constants.avatarRadius + Constants.padding,
-              right: Constants.padding,
-              bottom: Constants.padding),
-          margin: const EdgeInsets.only(top: Constants.avatarRadius),
-          decoration: BoxDecoration(
-              shape: BoxShape.rectangle,
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(Constants.padding),
-              boxShadow: [
-                BoxShadow(
-                    color: Colors.black, offset: Offset(0, 10), blurRadius: 10),
-              ]),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Text(
-                widget.title,
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              Text('Select Crust'),
-              SizedBox(height: 10),
-              bodyContent(widget.crust, widget.defaultCrust),
-              SizedBox(
-                height: 15,
-              ),
-              Text('Select Size'),
-              SizedBox(height: 10),
-              bodyContent2(widget.crust, widget.defaultCrust),
-              Align(
-                alignment: Alignment.bottomRight,
-                child: Row(
-                  children: [
-                    FlatButton(
-                        onPressed: () {
-                          Get.back();
-                        },
-                        child: Text(
-                          'Cancel',
-                          style: TextStyle(fontSize: 18),
-                        )),
-                    Spacer(),
-                    FlatButton(
-                        onPressed: () {
-                          String check = widget.nameid.toString() +
-                              '.' +
-                              widget.crust[selectCrustIndex - 1].id.toString() +
-                              '.' +
-                              widget.crust[selectCrustIndex - 1]
-                                  .sizes[selectSizeIndex - 1].id
-                                  .toString();
-                        
-                          Get.back();
-                        },
-                        child: Text(
-                          'Add',
-                          style: TextStyle(fontSize: 18),
-                        )),
-                  ],
+    return Consumer<CartProvider>(builder: (context, provider, _) {
+      return Stack(
+        children: <Widget>[
+          Container(
+            padding: const EdgeInsets.only(
+                left: Constants.padding,
+                top: Constants.avatarRadius + Constants.padding,
+                right: Constants.padding,
+                bottom: Constants.padding),
+            margin: const EdgeInsets.only(top: Constants.avatarRadius),
+            decoration: BoxDecoration(
+                shape: BoxShape.rectangle,
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(Constants.padding),
+                boxShadow: [
+                  BoxShadow(
+                      color: Colors.black,
+                      offset: Offset(0, 10),
+                      blurRadius: 10),
+                ]),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Text(
+                  widget.title,
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
                 ),
-              ),
-            ],
+                SizedBox(
+                  height: 15,
+                ),
+                Text('Select Crust'),
+                SizedBox(height: 10),
+                bodyContent(widget.crust, widget.defaultCrust),
+                SizedBox(
+                  height: 15,
+                ),
+                Text('Select Size'),
+                SizedBox(height: 10),
+                bodyContent2(widget.crust, widget.defaultCrust),
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: Row(
+                    children: [
+                      FlatButton(
+                          onPressed: () {
+                            Get.back();
+                          },
+                          child: Text(
+                            'Cancel',
+                            style: TextStyle(fontSize: 18),
+                          )),
+                      Spacer(),
+                      FlatButton(
+                          onPressed: () {
+                            String check = widget.nameid.toString() +
+                                '.' +
+                                widget.crust[selectCrustIndex - 1].id
+                                    .toString() +
+                                '.' +
+                                widget.crust[selectCrustIndex - 1]
+                                    .sizes[selectSizeIndex - 1].id
+                                    .toString();
+                            Get.back();
+                            provider.addProduct(check);
+                          },
+                          child: Text(
+                            'Add',
+                            style: TextStyle(fontSize: 18),
+                          )),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
-        Positioned(
-          left: Constants.padding,
-          right: Constants.padding,
-          child: CircleAvatar(
-            backgroundColor: Colors.transparent,
-            radius: Constants.avatarRadius,
-            child: ClipRRect(
-                borderRadius:
-                    BorderRadius.all(Radius.circular(Constants.avatarRadius)),
-                child: Image.asset("assets/pizza.jpg")),
+          Positioned(
+            left: Constants.padding,
+            right: Constants.padding,
+            child: CircleAvatar(
+              backgroundColor: Colors.transparent,
+              radius: Constants.avatarRadius,
+              child: ClipRRect(
+                  borderRadius:
+                      BorderRadius.all(Radius.circular(Constants.avatarRadius)),
+                  child: Image.asset("assets/pizza.jpg")),
+            ),
           ),
-        ),
-      ],
-    );
+        ],
+      );
+    });
   }
 
   bodyContent(List<Crusts> crust, int defaultCrust) {
