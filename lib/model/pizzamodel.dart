@@ -13,14 +13,14 @@ class PizzaModel {
   late final String description;
   late final int defaultCrust;
   late final List<Crusts> crusts;
-  
-  PizzaModel.fromJson(Map<String, dynamic> json){
+
+  PizzaModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     isVeg = json['isVeg'];
     description = json['description'];
     defaultCrust = json['defaultCrust'];
-    crusts = List.from(json['crusts']).map((e)=>Crusts.fromJson(e)).toList();
+    crusts = List.from(json['crusts']).map((e) => Crusts.fromJson(e)).toList();
   }
 
   Map<String, dynamic> toJson() {
@@ -30,7 +30,7 @@ class PizzaModel {
     _data['isVeg'] = isVeg;
     _data['description'] = description;
     _data['defaultCrust'] = defaultCrust;
-    _data['crusts'] = crusts.map((e)=>e.toJson()).toList();
+    _data['crusts'] = crusts.map((e) => e.toJson()).toList();
     return _data;
   }
 }
@@ -46,12 +46,12 @@ class Crusts {
   late final String name;
   late final int defaultSize;
   late final List<Sizes> sizes;
-  
-  Crusts.fromJson(Map<String, dynamic> json){
+
+  Crusts.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     defaultSize = json['defaultSize'];
-    sizes = List.from(json['sizes']).map((e)=>Sizes.fromJson(e)).toList();
+    sizes = List.from(json['sizes']).map((e) => Sizes.fromJson(e)).toList();
   }
 
   Map<String, dynamic> toJson() {
@@ -59,7 +59,7 @@ class Crusts {
     _data['id'] = id;
     _data['name'] = name;
     _data['defaultSize'] = defaultSize;
-    _data['sizes'] = sizes.map((e)=>e.toJson()).toList();
+    _data['sizes'] = sizes.map((e) => e.toJson()).toList();
     return _data;
   }
 }
@@ -73,8 +73,8 @@ class Sizes {
   late final int id;
   late final String name;
   late final int price;
-  
-  Sizes.fromJson(Map<String, dynamic> json){
+
+  Sizes.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     price = json['price'];

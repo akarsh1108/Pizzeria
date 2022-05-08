@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:pizzeria/model/pizzamodel.dart';
+import 'package:pizzeria/views/Widgets/dialogBox.dart';
 
-class homeContainer extends StatefulWidget {
-  const homeContainer({Key? key}) : super(key: key);
-
-  @override
-  _homeContainerState createState() => _homeContainerState();
-}
-
-class _homeContainerState extends State<homeContainer> {
+class homeContainer extends StatelessWidget {
+  const homeContainer({Key? key, required this.apiModel}) : super(key: key);
+  final PizzaModel apiModel;
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(12.0),
+    return SizedBox(
+      height: 200,
       child: Container(
         decoration: BoxDecoration(
           border: Border.all(color: Color(0xFFDB3224)),
@@ -22,7 +19,7 @@ class _homeContainerState extends State<homeContainer> {
           child: Row(
             children: [
               const Expanded(
-                flex: 1,
+                flex: 2,
                 child: Image(
                   alignment: Alignment.centerRight,
                   image: AssetImage(
@@ -31,29 +28,39 @@ class _homeContainerState extends State<homeContainer> {
                 ),
               ),
               Expanded(
-                  flex: 2,
+                flex: 3,
                 child: Column(children: [
                   Align(
                     alignment: Alignment.topLeft,
                     child: RichText(
                       text: TextSpan(
-                        text: 'Non Veg Pizza',
+                        text: '${apiModel.name}',
                         style: Theme.of(context).primaryTextTheme.headline6,
                       ),
                     ),
                   ),
                   SizedBox(height: 10),
-                  Flexible(
-                 child: new Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.")),
+                  Flexible(child: new Text("${apiModel.description}")),
                   SizedBox(height: 10),
                   Align(
                     alignment: Alignment.bottomRight,
                     child: ElevatedButton(
                       child: Text(
-                        'Button 2',
+                        'ADD',
                         style: Theme.of(context).primaryTextTheme.button,
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return CustomDialogBox(
+                                title: "${apiModel.name}",
+                                crust: apiModel.crusts,
+                                defaultCrust: apiModel.defaultCrust,
+                                nameid: "${apiModel.id}",
+                              );
+                            });
+                      },
                       style: ElevatedButton.styleFrom(
                         primary: Color(0xFFEA4235),
                       ),

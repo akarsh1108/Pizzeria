@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pizzeria/constants/theme.dart';
+import 'package:pizzeria/provider/detailsProvider.dart';
 import 'package:pizzeria/views/cartPage.dart';
 import 'package:pizzeria/views/homePage.dart';
 import 'package:provider/provider.dart';
@@ -17,22 +18,29 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  GetMaterialApp(
-        title: 'Pizzeria',
-        debugShowCheckedModeBanner: false,
-        initialRoute: AppPages.HomePage,
-        theme: ThemeClass.buildTheme(context),
-        getPages: [
-         GetPage(
-           name:AppPages.HomePage,
-           page:()=> const HomeScreen(),
-         ),
-         GetPage(
-           name:AppPages.HomePage,
-           page:()=> const CartScreen(),
-         )
-        ],
-    
+    return  MultiProvider(
+      providers: [
+         ChangeNotifierProvider(
+          create: (_) => DetailsProvider(),
+        )
+      ],
+      child: GetMaterialApp(
+          title: 'Pizzeria',
+          debugShowCheckedModeBanner: false,
+          initialRoute: AppPages.HomePage,
+          theme: ThemeClass.buildTheme(context),
+          getPages: [
+           GetPage(
+             name:AppPages.HomePage,
+             page:()=> const HomeScreen(),
+           ),
+           GetPage(
+             name:AppPages.HomePage,
+             page:()=> const CartScreen(),
+           )
+          ],
+      
+      ),
     );
   }
   }
