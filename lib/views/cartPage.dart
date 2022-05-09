@@ -16,11 +16,12 @@ class CartScreen extends StatefulWidget {
 class _CartScreenState extends State<CartScreen> {
   final _fromCartPageScroller = ScrollController(initialScrollOffset: 0.0);
   @override
+  //
   void initState() {
     super.initState();
     Provider.of<CartProvider>(context, listen: false).get();
   }
-
+//Disposing the Scroll option
   @override
   void dispose() {
     super.dispose();

@@ -30,6 +30,7 @@ class homeContainer extends StatelessWidget {
               Expanded(
                 flex: 3,
                 child: Column(children: [
+                  //The title is alligned to top left 
                   Align(
                     alignment: Alignment.topLeft,
                     child: RichText(
@@ -40,6 +41,7 @@ class homeContainer extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 10),
+                  //Flexible is used tomake the description interactive with sizes of device
                   Flexible(child: new Text("${apiModel.description}")),
                   SizedBox(height: 10),
                   Align(
@@ -50,6 +52,7 @@ class homeContainer extends StatelessWidget {
                         style: Theme.of(context).primaryTextTheme.button,
                       ),
                       onPressed: () {
+                        //On clicking add A dialog box opens to customise crust and size
                         showDialog(
                             context: context,
                             builder: (BuildContext context) {

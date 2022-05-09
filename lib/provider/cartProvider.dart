@@ -85,8 +85,12 @@ class CartProvider with ChangeNotifier {
     _crustName.clear();
     _sizeName.clear();
     _pizzaPrice.clear();
-    Get.snackbar("Purchase Successful", "Bill Amount \u{20B9} ${_totalAmount}",
-        snackPosition: SnackPosition.TOP, duration: Duration(seconds: 1));
+    (_totalProduct != 0)
+        ? Get.snackbar(
+            "Purchase Successful", "Bill Amount \u{20B9} ${_totalAmount}",
+            snackPosition: SnackPosition.TOP, duration: Duration(seconds: 1))
+        : Get.snackbar("Cart is empty", "Add pizza to cart ",
+            snackPosition: SnackPosition.TOP, duration: Duration(seconds: 1));
     productCount = {};
     _totalAmount = 0;
     _totalProduct = 0;

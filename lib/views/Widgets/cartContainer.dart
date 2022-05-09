@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:pizzeria/provider/cartProvider.dart';
 import 'package:provider/provider.dart';
 
@@ -24,7 +25,6 @@ class cartContainer extends StatefulWidget {
 }
 
 class _cartContainerState extends State<cartContainer> {
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -122,8 +122,51 @@ class _cartContainerState extends State<cartContainer> {
                                         ),
                                         tooltip: 'Remove one item ',
                                         onPressed: () {
-                                          widget.provider.decrementProduct(
-                                              widget.nameid, widget.cost);
+                                          showDialog<void>(
+                                              context: context,
+                                              barrierDismissible:
+                                                  false, // user must tap button!
+                                              builder: (BuildContext context) {
+                                                return AlertDialog(
+                                                  title: const Text(
+                                                      'Confirm Deletion'),
+                                                  content:
+                                                      SingleChildScrollView(
+                                                    child: ListBody(
+                                                      children: <Widget>[
+                                                        Text(
+                                                            '${widget.title} ${widget.crust} ${widget.size} will be removed from Cart'),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  actions: <Widget>[
+                                                    TextButton(
+                                                      child: const Text(
+                                                          'Cancel',
+                                                          style: TextStyle(
+                                                              color: Color(
+                                                                  0xFFDB3224))),
+                                                      onPressed: () {
+                                                        Get.back();
+                                                      },
+                                                    ),
+                                                    TextButton(
+                                                      child: const Text(
+                                                          'Approve',
+                                                          style: TextStyle(
+                                                              color: Color(
+                                                                  0xFFDB3224))),
+                                                      onPressed: () {
+                                                        widget.provider
+                                                            .decrementProduct(
+                                                                widget.nameid,
+                                                                widget.cost);
+                                                        Get.back();
+                                                      },
+                                                    ),
+                                                  ],
+                                                );
+                                              });
                                         },
                                       ),
                                     ),
