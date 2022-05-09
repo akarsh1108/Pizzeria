@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+//The theme of the app is predefined so that it mantains the stability of the text and reduce repeatations
 class ThemeClass {
   static ThemeData buildTheme(BuildContext context) {
     ThemeData themeData = ThemeData(

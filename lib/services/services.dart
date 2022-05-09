@@ -6,7 +6,7 @@ import 'package:pizzeria/model/pizzamodel.dart';
 class ApiServices {
   final String baseUrl =
       "https://625bbd9d50128c570206e502.mockapi.io/api/v1/pizza/1";
-
+//Used to fecth the data  from api and stor it in model class variables
   Future<PizzaModel> pizzaDetails() async {
     var url = Uri.parse('$baseUrl');
     var response = await http.get(url);

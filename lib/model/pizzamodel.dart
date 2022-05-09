@@ -1,3 +1,4 @@
+//Model class of the api here the data's are passed through json with null safety
 class PizzaModel {
   PizzaModel({
     required this.id,

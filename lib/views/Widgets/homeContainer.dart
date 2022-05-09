@@ -18,6 +18,7 @@ class homeContainer extends StatelessWidget {
           padding: const EdgeInsets.all(13.0),
           child: Row(
             children: [
+              //Image is occupies 40% space to make page more appealing
               const Expanded(
                 flex: 2,
                 child: Image(
@@ -40,10 +41,10 @@ class homeContainer extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   //Flexible is used tomake the description interactive with sizes of device
                   Flexible(child: new Text("${apiModel.description}")),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   Align(
                     alignment: Alignment.bottomRight,
                     child: ElevatedButton(

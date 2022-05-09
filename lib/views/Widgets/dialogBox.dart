@@ -105,6 +105,7 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
                       const Spacer(),
                       FlatButton(
                           onPressed: () {
+                            //Making check as the superKey mixing id to avoid thr redundency in the cart page
                             String check = widget.nameid.toString() +
                                 '.' +
                                 widget.crust[selectCrustIndex - 1].id

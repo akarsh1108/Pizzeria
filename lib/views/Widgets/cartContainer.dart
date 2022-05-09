@@ -122,6 +122,7 @@ class _cartContainerState extends State<cartContainer> {
                                         ),
                                         tooltip: 'Remove one item ',
                                         onPressed: () {
+                                          //When minus sign is pressed alert box opens to reconfirm the deletion
                                           showDialog<void>(
                                               context: context,
                                               barrierDismissible:
@@ -157,6 +158,7 @@ class _cartContainerState extends State<cartContainer> {
                                                               color: Color(
                                                                   0xFFDB3224))),
                                                       onPressed: () {
+                                                        //CartProvider is called to decrese the count and amount 
                                                         widget.provider
                                                             .decrementProduct(
                                                                 widget.nameid,
@@ -196,6 +198,7 @@ class _cartContainerState extends State<cartContainer> {
                                         icon: const Icon(Icons.add),
                                         tooltip: 'Add one item ',
                                         onPressed: () {
+                                          //Cart Provider is called to increse the pizza stored in cart quantity
                                           widget.provider.addItem(
                                               widget.nameid, widget.cost);
                                         },

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pizzeria/provider/cartProvider.dart';
 import 'package:pizzeria/views/Widgets/cartContainer.dart';
+import 'package:pizzeria/views/homePage.dart';
 import 'package:provider/provider.dart';
 
 import '../constants/appPages.dart';
@@ -16,11 +17,11 @@ class CartScreen extends StatefulWidget {
 class _CartScreenState extends State<CartScreen> {
   final _fromCartPageScroller = ScrollController(initialScrollOffset: 0.0);
   @override
-  //
   void initState() {
     super.initState();
     Provider.of<CartProvider>(context, listen: false).get();
   }
+
 //Disposing the Scroll option
   @override
   void dispose() {
@@ -37,6 +38,7 @@ class _CartScreenState extends State<CartScreen> {
                 style: Theme.of(context).primaryTextTheme.headline3)),
         body: Column(
           children: [
+            //Container to store total count of items and total amount
             PaymentInfoWidget(
               totalAmount: provider.TotalAmount,
               totalProduct: provider.TotalProduct,
@@ -56,9 +58,11 @@ class _CartScreenState extends State<CartScreen> {
                   crossAxisMargin: 10,
                   radius: Radius.circular(5),
                   controller: _fromCartPageScroller,
+                  //Store all add to cart items one by one
                   child: ListView.builder(
                     itemCount: provider.ProductidName.length,
                     itemBuilder: (BuildContext context, int index) {
+                      //Sending the details to display the pizza information and working with them
                       return cartContainer(
                         count: provider
                             .productCount['${provider.ProductidName[index]}'],
@@ -78,8 +82,9 @@ class _CartScreenState extends State<CartScreen> {
         ),
         floatingActionButton: FloatingActionButton.extended(
           onPressed: () {
+            //After buying the cart is emptied
             provider.clearAll();
-            Get.toNamed(AppPages.HomePage);
+            Get.offAll(HomeScreen());
           },
           label: Text('       Buy Now         ',
               style: Theme.of(context).primaryTextTheme.button),
@@ -91,6 +96,7 @@ class _CartScreenState extends State<CartScreen> {
   }
 }
 
+//Total ammount and cart count is stored here
 class PaymentInfoWidget extends StatelessWidget {
   PaymentInfoWidget({required this.totalProduct, required this.totalAmount});
   int totalProduct;
