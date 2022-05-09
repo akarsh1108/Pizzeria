@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
              page:()=> const HomeScreen(),
            ),
            GetPage(
-             name:AppPages.HomePage,
+             name:AppPages.CartPage,
              page:()=> const CartScreen(),
            )
           ],

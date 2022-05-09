@@ -108,10 +108,12 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
                                     .sizes[selectSizeIndex - 1].id
                                     .toString();
                             Get.back();
-                            provider.addProduct(check);
+                            provider.addProduct(check,widget.title,widget.crust[selectCrustIndex - 1].name,widget.crust[selectCrustIndex - 1]
+                                    .sizes[selectSizeIndex - 1].name, widget.crust[selectCrustIndex - 1]
+                                    .sizes[selectSizeIndex - 1].price);
                           },
                           child: Text(
-                            'Add',
+                            'Add To Cart',
                             style: TextStyle(fontSize: 18),
                           )),
                     ],

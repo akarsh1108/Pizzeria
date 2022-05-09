@@ -10,11 +10,9 @@ class ApiServices {
   Future<PizzaModel> pizzaDetails() async {
     var url = Uri.parse('$baseUrl');
     var response = await http.get(url);
-    print(response.statusCode);
     var body = response.body;
     Map<String, dynamic> jsonData = jsonDecode(body);
     PizzaModel decode = PizzaModel.fromJson(jsonData);
-    print(decode);
     return decode;
   }
 }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:pizzeria/constants/appPages.dart';
 import 'package:pizzeria/model/pizzamodel.dart';
 import 'package:pizzeria/provider/detailsProvider.dart';
 import 'package:pizzeria/views/Widgets/homeContainer.dart';
@@ -12,40 +14,46 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  var apiModel;
-
+  
   @override
-   void initState() {
+  void initState() {
     super.initState();
     Provider.of<DetailsProvider>(context, listen: false).getNames();
   }
-    @override
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Pizzeria'),
-        ),
-        body: Consumer<DetailsProvider>(
-        builder: (context, provider, _) {
+        title: Text('Pizzeria',
+            style: Theme.of(context).primaryTextTheme.headline3),
+      ),
+      body: Consumer<DetailsProvider>(builder: (context, provider, _) {
         PizzaModel _apiModel = provider.PizzaList;
-          print(_apiModel.name);
-          if (provider.isLoading) {
-            return Container(
-              child: Center(
-                child: CircularProgressIndicator(),
-              ),
-            );
-          }
-          print(_apiModel);
-          return Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: ListView.builder(
-              itemCount:1,
-              itemBuilder: (BuildContext context, int index) {
-                return homeContainer( apiModel: _apiModel);
-              }),
+        if (provider.isLoading) {
+          return Container(
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
           );
-            })
+        }
+        return Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: ListView.builder(
+              itemCount: 1,
+              itemBuilder: (BuildContext context, int index) {
+                return homeContainer(apiModel: _apiModel);
+              }),
+        );
+      }),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          Get.toNamed(AppPages.CartPage);
+        },
+        label:
+            Text('View Cart', style: Theme.of(context).primaryTextTheme.button),
+        icon: const Icon(Icons.shopping_cart),
+      ),
     );
   }
 }

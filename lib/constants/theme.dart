@@ -36,7 +36,7 @@ class ThemeClass {
                   fontSize: 36),
               headline3: GoogleFonts.roboto(
                   color: Colors.white,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.normal,
                   fontSize: 24,
                   fontStyle: FontStyle.normal),
               headline4: GoogleFonts.roboto(
@@ -63,7 +63,7 @@ class ThemeClass {
                 color: Colors.black,
                 fontWeight: FontWeight.normal,
                 fontStyle: FontStyle.normal,
-                fontSize: 12,
+                fontSize: 15,
               ),
               caption: GoogleFonts.nunitoSans(
                   color: const Color(0xffFFFFFF),
